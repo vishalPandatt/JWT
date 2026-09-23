@@ -1,18 +1,19 @@
-.navbar{
-    background-color: #343a40;
-}
-.navbar .navbar-brand{
-    color: #fff;
-}
-.navbar .nav-link{
-    color: #fff;
-    text-decoration: none;
-    margin-right: 20px;
+.custom-navbar {
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 12px 0;
 }
 
+.brand-title {
+  font-size: 1.35rem;
+  letter-spacing: -0.5px;
+}
 
-@media (max-width: 576px) {
-    .navbar .nav-link {
-        margin-right: 0px;
-    }
+.nav-link {
+  color: #475569 !important;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #2563eb !important;
 }
