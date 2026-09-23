@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getToken, removeToken, getUserInfo } from "../../utils/api";
-import "./Header.css";
+import "./header.css";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const Header = () => {
     <nav className="navbar navbar-expand-lg custom-navbar shadow-sm">
       <div className="container">
         <Link className="navbar-brand fw-bold text-primary brand-title" to={token ? "/dashboard" : "/login"}>
-          🔒 Auth<span className="text-dark">Shield</span> JWT
+          Auth<span className="text-dark">Shield</span> JWT
         </Link>
         <div className="navbar-nav ms-auto align-items-center flex-row gap-3">
           {token ? (
