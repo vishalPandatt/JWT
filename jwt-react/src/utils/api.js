@@ -22,7 +22,7 @@ export const getUserInfo = () => {
   return user ? JSON.parse(user) : null;
 };
 
-// API Fetch wrapper with Authorization Header
+// API Fetch wrapper with Authorization Header & clear error handling
 export const apiRequest = async (endpoint, method = "GET", body = null) => {
   const token = getToken();
   const headers = {
@@ -42,12 +42,19 @@ export const apiRequest = async (endpoint, method = "GET", body = null) => {
     config.body = JSON.stringify(body);
   }
 
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
-  const data = await response.json();
+  try {
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
+    const data = await response.json().catch(() => ({}));
 
-  if (!response.ok) {
-    throw new Error(data.message || "API request failed");
+    if (!response.ok) {
+      throw new Error(data.message || `Request failed with status ${response.status}`);
+    }
+
+    return data;
+  } catch (error) {
+    if (error.name === "TypeError" && (error.message.includes("fetch") || error.message.includes("NetworkError"))) {
+      throw new Error("Cannot connect to Backend server! Please make sure 'npm start' is running in the main project folder on port 5000.");
+    }
+    throw error;
   }
-
-  return data;
 };

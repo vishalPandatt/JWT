@@ -15,6 +15,11 @@ const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const fillDemo = (email, password) => {
+    setFormData({ email, password });
+    setError("");
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -33,7 +38,7 @@ const Login = () => {
       
       navigate("/dashboard");
     } catch (err) {
-      setError(err.message || "Invalid credentials.");
+      setError(err.message || "Invalid email or password.");
     } finally {
       setLoading(false);
     }
@@ -46,11 +51,32 @@ const Login = () => {
           <div className="card shadow-sm border-0 rounded-4 p-4">
             <div className="card-body">
               <h3 className="card-title text-center fw-bold text-dark mb-1">Welcome Back</h3>
-              <p className="text-center text-muted small mb-4">
+              <p className="text-center text-muted small mb-3">
                 Login with your email and password
               </p>
 
-              {error && <div className="alert alert-danger py-2">{error}</div>}
+              {/* Demo Credentials Quick Fill */}
+              <div className="bg-light p-2 rounded-3 text-center mb-3">
+                <span className="text-muted small d-block mb-1">💡 Quick Demo Login:</span>
+                <div className="d-flex justify-content-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => fillDemo("test@example.com", "password123")}
+                    className="btn btn-outline-secondary btn-sm rounded-pill"
+                  >
+                    Customer Demo
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => fillDemo("admin@example.com", "password123")}
+                    className="btn btn-outline-danger btn-sm rounded-pill"
+                  >
+                    Admin Demo
+                  </button>
+                </div>
+              </div>
+
+              {error && <div className="alert alert-danger py-2 small">{error}</div>}
 
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
